@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOBERA | أجود الفواكه المغربية للتصدير والسوق المحلي</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        globeragreen: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                            950: '#0a2e18',
+                        },
+                        globergold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        },
+                        cream: {
+                            50: '#fbfdf9',
+                            100: '#f4f8f2',
+                            200: '#e8f0e5',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            background-color: #f7faf6;
+            color: #0f2d1c;
+            overflow-x: hidden;
+        }
+
+        /* Ultra Realistic Light Glassmorphism & Soft Organic Shadows */
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(22, 163, 74, 0.12);
+            box-shadow: 0 10px 30px -5px rgba(20, 83, 45, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .glass-nav-light {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(22, 163, 74, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .hero-glow-light {
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.25) 0%, rgba(220, 252, 231, 0.4) 40%, transparent 75%);
+        }
+
+        /* Hover Elevation Effects */
+        .hover-lift {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -10px rgba(22, 163, 74, 0.15), 0 8px 16px rgba(0, 0, 0, 0.04);
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+
+        /* Custom Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
+        @keyframes floatFast {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(-3deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.06); }
+        }
+
+        .animate-float-slow {
+            animation: floatSlow 6s ease-in-out infinite;
+        }
+        .animate-float-fast {
+            animation: floatFast 4.5s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 5s ease-in-out infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f5ee;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a7f3d0;
+            border-radius: 5px;
+            border: 2px solid #f0f5ee;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-globeragreen-600 selection:text-white text-slate-800">
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 transform -translate-y-10 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-white text-slate-900 px-6 py-4 rounded-2xl shadow-2xl border border-globeragreen-400 flex items-center space-x-4 space-x-reverse">
+            <div class="w-10 h-10 rounded-xl bg-globeragreen-100 flex items-center justify-center text-globeragreen-600 text-xl font-bold">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm text-globeragreen-950" id="toast-title">نجاح العملية</h4>
+                <p class="text-xs text-slate-600" id="toast-desc">تم إرسال طلبكم بنجاح إلى فريق جلوبيرا.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav-light transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo & Name -->
+            <a href="#" class="flex items-center space-x-3 space-x-reverse group">
+                <div class="flex items-center gap-3">
+                    <!-- Detailed GLOBERA Light Theme SVG Logo -->
+                    <svg class="h-12 w-auto transition-transform duration-300 group-hover:scale-105 filter drop-shadow-sm" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="globeGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#15803d" />
+                                <stop offset="100%" stop-color="#052e16" />
+                            </linearGradient>
+                            <linearGradient id="leafGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#22c55e" />
+                                <stop offset="100%" stop-color="#15803d" />
+                            </linearGradient>
+                            <linearGradient id="goldGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#facc15" />
+                                <stop offset="100%" stop-color="#eab308" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Outer Golden Ring -->
+                        <path d="M 270 45 A 200 200 0 0 1 450 250 A 200 200 0 0 1 380 410" fill="none" stroke="url(#goldGradLight)" stroke-width="9" stroke-linecap="round"/>
+
+                        <!-- Leaves Frame -->
+                        <path d="M 120 120 C 60 70 180 20 260 20 C 190 60 170 100 130 180 C 100 120 70 160 50 200 C 90 200 110 240 100 290 C 70 250 50 300 80 340 C 110 320 120 370 135 410 C 130 360 160 330 180 300" fill="url(#leafGradLight)"/>
+                        
+                        <!-- Globe Base -->
+                        <circle cx="270" cy="240" r="160" fill="url(#globeGradLight)" stroke="#16a34a" stroke-width="5"/>
+
+                        <!-- World Map Silhouette -->
+                        <path d="M 250 120 Q 270 110 280 130 Q 300 140 295 160 Q 310 180 290 220 Q 280 260 260 290 Q 240 280 230 250 Q 220 220 240 190 Q 230 170 220 150 Z" fill="#22c55e"/>
+                        
+                        <!-- Morocco Dot & Export Rays -->
+                        <circle cx="232" cy="182" r="7" fill="#facc15"/>
+                        <path d="M 232 182 L 310 120 M 232 182 L 340 160 M 232 182 L 350 210 M 232 182 L 200 130 M 232 182 L 310 280" stroke="#facc15" stroke-width="3" stroke-dasharray="4,3" stroke-linecap="round"/>
+                        <circle cx="310" cy="120" r="4" fill="#facc15"/>
+                        <circle cx="340" cy="160" r="4" fill="#facc15"/>
+                        <circle cx="350" cy="210" r="4" fill="#facc15"/>
+                        <circle cx="200" cy="130" r="4" fill="#facc15"/>
+                        <circle cx="310" cy="280" r="4" fill="#facc15"/>
+
+                        <!-- Green Agricultural Fields -->
+                        <g>
+                            <path d="M 125 300 Q 270 230 415 300 Q 380 380 270 400 Q 160 380 125 300 Z" fill="#14532d"/>
+                            <path d="M 140 315 Q 270 255 400 315" fill="none" stroke="#4ade80" stroke-width="4"/>
+                            <path d="M 160 335 Q 270 280 380 335" fill="none" stroke="#4ade80" stroke-width="4"/>
+                            <path d="M 180 355 Q 270 305 360 355" fill="none" stroke="#4ade80" stroke-width="4"/>
+                        </g>
+
+                        <!-- Fruits Overlay -->
+                        <circle cx="185" cy="260" r="22" fill="#f97316"/>
+                        <circle cx="180" cy="255" r="4" fill="#fed7aa" opacity="0.8"/>
+                        <path d="M 225 210 Q 245 210 250 235 Q 255 270 230 285 Q 205 270 210 235 Z" fill="#365314" stroke="#86efac" stroke-width="2"/>
+                        <path d="M 225 220 Q 238 220 242 238 Q 245 262 228 273 Q 212 262 215 238 Z" fill="#bef264"/>
+                        <circle cx="228" cy="255" r="10" fill="#713f12"/>
+                        <path d="M 250 285 Q 280 285 300 245 Q 295 240 285 245 Q 270 275 245 275 Z" fill="#facc15" stroke="#ca8a04" stroke-width="1.5"/>
+                    </svg>
+
+                    <!-- GLOBERA Typography -->
+                    <span class="text-2xl sm:text-3xl font-black tracking-wider text-globeragreen-950 font-poppins">
+                        GLOBERA
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-8 space-x-reverse text-sm font-bold text-slate-700">
+                <a href="#hero" class="hover:text-globeragreen-600 transition-colors py-2">الرئيسية</a>
+                <a href="#products" class="hover:text-globeragreen-600 transition-colors py-2">فواكهنا الممتازة</a>
+                <a href="#export-network" class="hover:text-globeragreen-600 transition-colors py-2">شبكة التصدير والتوزيع</a>
+                <a href="#calculator" class="hover:text-globeragreen-600 transition-colors py-2">حاسبة الطلبات B2B</a>
+                <a href="#contact" class="hover:text-globeragreen-600 transition-colors py-2">اتصل بنا</a>
+            </nav>
+
+            <!-- Call To Action Buttons -->
+            <div class="hidden sm:flex items-center space-x-4 space-x-reverse">
+                <a href="#calculator" class="bg-gradient-to-r from-globeragreen-700 to-globeragreen-600 hover:from-globeragreen-600 hover:to-globeragreen-500 text-white px-6 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-globeragreen-600/20 transition-all duration-300 transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-box-open ml-2"></i> اطلب شحنتك
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle Button -->
+            <button id="mobile-menu-btn" class="lg:hidden text-globeragreen-950 text-2xl focus:outline-none p-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-xl border-b border-globeragreen-200 px-6 py-6 space-y-4 shadow-xl">
+            <a href="#hero" class="block text-slate-800 font-bold py-2 border-b border-slate-100">الرئيسية</a>
+            <a href="#products" class="block text-slate-700 font-semibold py-2 border-b border-slate-100">فواكهنا الممتازة</a>
+            <a href="#export-network" class="block text-slate-700 font-semibold py-2 border-b border-slate-100">شبكة التصدير والتوزيع</a>
+            <a href="#calculator" class="block text-slate-700 font-semibold py-2 border-b border-slate-100">حاسبة الطلبات B2B</a>
+            <a href="#contact" class="block text-slate-700 font-semibold py-2">اتصل بنا</a>
+            <a href="#calculator" class="block text-center bg-globeragreen-600 text-white py-3 rounded-xl font-bold mt-4 shadow-md">اطلب شحنتك الآن</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <!-- Glowing Light Gradient Background Backdrop -->
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] hero-glow-light rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+        
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            <!-- Text Content -->
+            <div class="lg:col-span-7 space-y-8 text-right">
+                <div class="inline-flex items-center space-x-2 space-x-reverse bg-globeragreen-100/80 border border-globeragreen-300 px-4 py-2 rounded-full shadow-sm">
+                    <span class="w-2.5 h-2.5 rounded-full bg-globeragreen-600 animate-ping"></span>
+                    <span class="text-xs font-black text-globeragreen-900 uppercase tracking-widest">المصدر الرائد للفواكه المغربية الطازجة</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black leading-tight tracking-tight text-globeragreen-950">
+                    جودة طبيعية فائقة من <span class="bg-gradient-to-r from-globeragreen-700 via-globeragreen-600 to-globergold-600 bg-clip-text text-transparent">ضيعات المغرب</span> لكافة دول العالم
+                </h1>
+                
+                <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal max-w-2xl">
+                    نحن في <strong class="text-globeragreen-900 font-bold">GLOBERA</strong> نجمع بين أصالة الفلاحة المغربية وأحدث تقنيات اللوجستيك مبردًا وتعبئةً لنعبر بفواكهنا الممتازة (الأفوكادو، الحوامض، الموز، والبطيخ) نحو الأسواق العالمية والمحلية.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4 sm:space-x-reverse">
+                    <a href="#calculator" class="w-full sm:w-auto text-center bg-gradient-to-r from-globeragreen-700 to-globeragreen-600 hover:from-globeragreen-600 hover:to-globeragreen-500 text-white px-8 py-4 rounded-2xl font-black text-lg shadow-xl shadow-globeragreen-600/25 transition-all transform hover:-translate-y-1">
+                        <i class="fa-solid fa-calculator ml-2"></i> احسب تكلفة الشحنة B2B
+                    </a>
+                    <a href="#products" class="w-full sm:w-auto text-center glass-card-light hover:bg-white text-globeragreen-900 px-8 py-4 rounded-2xl font-bold text-lg transition-all border border-globeragreen-300 hover:border-globeragreen-500">
+                        <i class="fa-solid fa-apple-whole ml-2 text-globeragreen-600"></i> استكشف الكتالوج
+                    </a>
+                </div>
+
+                <!-- Metrics & Trust Highlights -->
+                <div class="grid grid-cols-3 gap-6 pt-6 border-t border-globeragreen-200/80">
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-globergold-600 font-poppins">+15 سنة</h3>
+                        <p class="text-xs text-slate-500 font-bold mt-1">خبرة وتفوق في التصدير</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-globeragreen-800 font-poppins">35+ دولة</h3>
+                        <p class="text-xs text-slate-500 font-bold mt-1">وجهة عالمية موثوقة</p>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl sm:text-3xl font-black text-globeragreen-800 font-poppins">100% طازج</h3>
+                        <p class="text-xs text-slate-500 font-bold mt-1">معايير جودة أوروبية (GlobalGAP)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ultra Crisp Visual Graphic Floating Elements -->
+            <div class="lg:col-span-5 relative flex justify-center items-center">
+                <div class="relative w-[320px] h-[320px] sm:w-[460px] sm:h-[460px] rounded-full glass-card-light flex items-center justify-center p-6 border-2 border-globeragreen-300 shadow-2xl animate-float-slow">
+                    <!-- Central Inner Sphere -->
+                    <div class="absolute inset-4 rounded-full bg-gradient-to-br from-globeragreen-800 to-globeragreen-950 flex flex-col items-center justify-center text-center p-6 overflow-hidden shadow-inner">
+                        <i class="fa-solid fa-earth-africa text-8xl sm:text-9xl text-globeragreen-700/30 absolute -bottom-10 -right-10"></i>
+                        <div class="relative z-10 space-y-2">
+                            <span class="bg-globergold-400 text-globeragreen-950 text-xs font-black px-3 py-1 rounded-full shadow">Made in Morocco 🇲🇦</span>
+                            <h3 class="text-3xl sm:text-4xl font-black text-white tracking-wider font-poppins">GLOBERA</h3>
+                            <p class="text-xs text-globeragreen-100 max-w-[240px]">رمز التميز والجودة في تصدير الفواكه المغربية الطازجة.</p>
+                        </div>
+                    </div>
+
+                    <!-- Floating Realistic Fruit Mini-Cards -->
+                    <div class="absolute -top-4 -right-4 glass-card-light bg-white/95 px-5 py-3.5 rounded-2xl shadow-xl flex items-center space-x-3 space-x-reverse border border-globeragreen-300 animate-float-fast">
+                        <div class="w-11 h-11 rounded-xl bg-emerald-100 flex items-center justify-center text-2xl shadow-inner">🥑</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-globeragreen-950">أفوكادو هاس الفاخر</h4>
+                            <p class="text-[10px] font-semibold text-globeragreen-600">درجة أفرز أولى للتصدير</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-4 -left-4 glass-card-light bg-white/95 px-5 py-3.5 rounded-2xl shadow-xl flex items-center space-x-3 space-x-reverse border border-globeragreen-300 animate-float-slow" style="animation-delay: 2s;">
+                        <div class="w-11 h-11 rounded-xl bg-orange-100 flex items-center justify-center text-2xl shadow-inner">🍊</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-globeragreen-950">حوامض مراكش وسوس</h4>
+                            <p class="text-[10px] font-semibold text-globeragreen-600">طبيعية وغنية بالحلاوة</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-1/2 -left-8 -translate-y-1/2 glass-card-light bg-white/95 px-5 py-3.5 rounded-2xl shadow-xl flex items-center space-x-3 space-x-reverse border border-globeragreen-300 animate-float-fast" style="animation-delay: 1s;">
+                        <div class="w-11 h-11 rounded-xl bg-amber-100 flex items-center justify-center text-2xl shadow-inner">🍌</div>
+                        <div>
+                            <h4 class="text-xs font-bold text-globeragreen-950">موز طازج عالي الجودة</h4>
+                            <p class="text-[10px] font-semibold text-globeragreen-600">توزيع محلي ودولي</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Interactive Catalog -->
+    <section id="products" class="py-24 px-4 sm:px-6 lg:px-8 relative bg-cream-100/60 border-y border-globeragreen-200/60">
+        <div class="max-w-7xl mx-auto space-y-12">
+            <!-- Section Header -->
+            <div class="text-center space-y-4">
+                <span class="text-globeragreen-800 text-xs font-black uppercase tracking-widest bg-globeragreen-100 px-4 py-2 rounded-full border border-globeragreen-300">محاصيلنا الطازجة</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-globeragreen-950">كتالوج الفواكه المغربية الفاخرة</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">اختر الفواكه التي تناسب نشاطك التجاري، جميع منتجاتنا مفحوصة ومطابقة لمعايير السلامة الغذائية العالمية.</p>
+            </div>
+
+            <!-- Product Category Filter Tabs -->
+            <div class="flex justify-center flex-wrap gap-3 max-w-xl mx-auto">
+                <button onclick="filterProducts('all')" class="tab-btn active-tab bg-globeragreen-700 text-white px-6 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all">الكل</button>
+                <button onclick="filterProducts('export')" class="tab-btn bg-white text-slate-700 hover:bg-globeragreen-50 px-6 py-2.5 rounded-xl font-bold text-xs border border-slate-200 transition-all">مخصصة للتصدير الدولي</button>
+                <button onclick="filterProducts('domestic')" class="tab-btn bg-white text-slate-700 hover:bg-globeragreen-50 px-6 py-2.5 rounded-xl font-bold text-xs border border-slate-200 transition-all">مخصصة للسوق المحلي</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product Card 1 -->
+                <div class="product-item export glass-card-light bg-white rounded-3xl p-6 hover-lift flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 h-52 flex items-center justify-center mb-6 border border-emerald-200">
+                            <span class="absolute top-3 right-3 bg-globeragreen-700 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm">تصدير ممتاز</span>
+                            <span class="text-7xl filter drop-shadow-md transform hover:scale-110 transition-transform duration-300">🥑</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-black text-globeragreen-950">أفوكادو هاس (Hass)</h3>
+                                <span class="text-globergold-600 font-bold text-xs bg-amber-50 px-2 py-1 rounded border border-amber-200">الدرجة أ</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed">أفوكادو مغربي طازج بقوام كريمي متماسك، معبأ بحجم وزني دقيق ومثالي للتصدير.</p>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-4 flex items-center justify-between border-t border-slate-100">
+                        <span class="text-[11px] font-bold text-globeragreen-700"><i class="fa-solid fa-snowflake ml-1"></i> تبريد محكم</span>
+                        <button onclick="openProductModal('أفوكادو هاس (Hass)', 'أفوكادو مغربي ممتاز يتم جنيه وتغليفه وفق أحدث معايير الجودة والتبريد لحفظ الطراوة طوال مدة الشحن البحرية أو الجوية.')" class="bg-globeragreen-700 hover:bg-globeragreen-800 text-white text-xs px-4 py-2 rounded-xl font-bold shadow-sm transition-colors">تفاصيل الطلب</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-item export domestic glass-card-light bg-white rounded-3xl p-6 hover-lift flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-50 to-amber-100 h-52 flex items-center justify-center mb-6 border border-orange-200">
+                            <span class="absolute top-3 right-3 bg-orange-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm">موسمي محلي/تصدير</span>
+                            <span class="text-7xl filter drop-shadow-md transform hover:scale-110 transition-transform duration-300">🍊</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-black text-globeragreen-950">حوامض سوس ومراكش</h3>
+                                <span class="text-globergold-600 font-bold text-xs bg-amber-50 px-2 py-1 rounded border border-amber-200">طبيعي 100%</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed">برتقال، كلمنتين ويوسفي مغربي شهير بحلاوته ونسبة عصارة فائقة.</p>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-4 flex items-center justify-between border-t border-slate-100">
+                        <span class="text-[11px] font-bold text-globeragreen-700"><i class="fa-solid fa-box ml-1"></i> صناديق B2B</span>
+                        <button onclick="openProductModal('حوامض سوس ومراكش', 'تشكيلة حوامض فريدة منتجة بأفضل المزارع المغربية، متوفرة في صناديق كرتونية أو خشبية مصممة للتحمل.')" class="bg-globeragreen-700 hover:bg-globeragreen-800 text-white text-xs px-4 py-2 rounded-xl font-bold shadow-sm transition-colors">تفاصيل الطلب</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-item domestic glass-card-light bg-white rounded-3xl p-6 hover-lift flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-yellow-50 to-amber-100 h-52 flex items-center justify-center mb-6 border border-yellow-200">
+                            <span class="absolute top-3 right-3 bg-globergold-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm">السوق المحلي المغربي</span>
+                            <span class="text-7xl filter drop-shadow-md transform hover:scale-110 transition-transform duration-300">🍌</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-black text-globeragreen-950">موز مغربي طازج</h3>
+                                <span class="text-globergold-600 font-bold text-xs bg-amber-50 px-2 py-1 rounded border border-amber-200">جودة عالية</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed">موز محلي ممتازة تم جنيها من المشاتل المغربية الدافئة موجهة للأسواق والموزعين.</p>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-4 flex items-center justify-between border-t border-slate-100">
+                        <span class="text-[11px] font-bold text-globeragreen-700"><i class="fa-solid fa-truck-fast ml-1"></i> توزيع سريع</span>
+                        <button onclick="openProductModal('موز مغربي طازج', 'تزويد مستمر وموثوق للموزعين والمحلات الكبرى بالمغرب مع الحفاظ على النضج التدريجي المثالي.')" class="bg-globeragreen-700 hover:bg-globeragreen-800 text-white text-xs px-4 py-2 rounded-xl font-bold shadow-sm transition-colors">تفاصيل الطلب</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-item export domestic glass-card-light bg-white rounded-3xl p-6 hover-lift flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-red-50 to-rose-100 h-52 flex items-center justify-center mb-6 border border-red-200">
+                            <span class="absolute top-3 right-3 bg-red-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm">صيفي فاخر</span>
+                            <span class="text-7xl filter drop-shadow-md transform hover:scale-110 transition-transform duration-300">🍉</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-black text-globeragreen-950">بطيخ أحمر (دلاح)</h3>
+                                <span class="text-globergold-600 font-bold text-xs bg-amber-50 px-2 py-1 rounded border border-amber-200">حجم كبير</span>
+                            </div>
+                            <p class="text-slate-600 text-xs leading-relaxed">دلاح الصحراء وزاكورة المشهور بحلاوته الاستثنائية وجودة لبه المديدة.</p>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-4 flex items-center justify-between border-t border-slate-100">
+                        <span class="text-[11px] font-bold text-globeragreen-700"><i class="fa-solid fa-award ml-1"></i> مفحوص جودة</span>
+                        <button onclick="openProductModal('بطيخ أحمر (دلاح)', 'بطيخ أحمر طبيعي متوفر بأوزان كبيرة ومثالية للأسواق الكبرى ولشحنات التصدير بالطن.')" class="bg-globeragreen-700 hover:bg-globeragreen-800 text-white text-xs px-4 py-2 rounded-xl font-bold shadow-sm transition-colors">تفاصيل الطلب</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Export & Domestic Logistics Network Simulator -->
+    <section id="export-network" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-7xl mx-auto glass-card-light bg-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-globeragreen-200 relative overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-6 text-right">
+                    <span class="text-globeragreen-800 text-xs font-black uppercase tracking-widest bg-globeragreen-100 px-4 py-1.5 rounded-full border border-globeragreen-300">شبكة لوجستية متطورة</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-globeragreen-950 leading-tight">شحن موثوق وسريع داخل المغرب وإلى القارات الأربع</h2>
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                        نضمن في <strong class="text-globeragreen-900">GLOBERA</strong> سلسلة تبريد مستمرة (Cold Chain) من لحظة الجني حتى التسليم للعميل، مع الالتزام التام بالمعايير الجمركية والتنظيمية.
+                    </p>
+
+                    <!-- Route Selector Simulator Buttons -->
+                    <div class="space-y-3 pt-2">
+                        <label class="block text-xs font-bold text-slate-700">اختر الوجهة لاستعراض مدة الشحن التقريبية:</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2" id="route-buttons">
+                            <button onclick="selectRoute('eu')" id="btn-eu" class="route-btn bg-globeragreen-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs shadow-sm transition-all">🇪🇺 أوروبا (3-5 أيام)</button>
+                            <button onclick="selectRoute('gcc')" id="btn-gcc" class="route-btn bg-slate-100 text-slate-700 hover:bg-globeragreen-50 font-bold py-2.5 px-3 rounded-xl text-xs border border-slate-200 transition-all">🇸🇦 الخليج (7-10 أيام)</button>
+                            <button onclick="selectRoute('local')" id="btn-local" class="route-btn bg-slate-100 text-slate-700 hover:bg-globeragreen-50 font-bold py-2.5 px-3 rounded-xl text-xs border border-slate-200 transition-all">🇲🇦 المغرب (24 ساعة)</button>
+                            <button onclick="selectRoute('na')" id="btn-na" class="route-btn bg-slate-100 text-slate-700 hover:bg-globeragreen-50 font-bold py-2.5 px-3 rounded-xl text-xs border border-slate-200 transition-all">🇨🇦 أمريكا (6-8 أيام)</button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Route Details Display Box -->
+                    <div id="route-info" class="p-5 rounded-2xl bg-cream-100 border border-globeragreen-300 space-y-2">
+                        <h4 class="font-bold text-globeragreen-950 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-ship text-globeragreen-600"></i>
+                            <span id="route-title">خط التصدير إلى أوروبا (EU Shipping Line)</span>
+                        </h4>
+                        <p id="route-desc" class="text-xs text-slate-600 leading-relaxed">
+                            انطلاق الشحنات عبر الموانئ المغربية (ميناء طنجة المتوسط) نحو ميناء ألميريا وجنوة وروتردام في حاويات مبردة ذكية.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Visual Interactive Map Cards Grid -->
+                <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="p-6 rounded-2xl bg-gradient-to-br from-white to-emerald-50/50 border border-globeragreen-200 shadow-md">
+                        <div class="w-12 h-12 rounded-2xl bg-globeragreen-100 flex items-center justify-center text-globeragreen-700 text-xl font-bold mb-4">
+                            <i class="fa-solid fa-temperature-arrow-down"></i>
+                        </div>
+                        <h3 class="font-black text-globeragreen-950 text-base mb-1">تبريد مستمر</h3>
+                        <p class="text-xs text-slate-600">أنظمة استشعار الحرارة الذكية للحفاظ على جودة القوام والخصائص الغذائية.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gradient-to-br from-white to-emerald-50/50 border border-globeragreen-200 shadow-md">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-700 text-xl font-bold mb-4">
+                            <i class="fa-solid fa-file-contract"></i>
+                        </div>
+                        <h3 class="font-black text-globeragreen-950 text-base mb-1">شهادات دولية</h3>
+                        <p class="text-xs text-slate-600">مطابقة تامة لشهادات GlobalGAP و HACCP و ONSSA المغربية.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gradient-to-br from-white to-emerald-50/50 border border-globeragreen-200 shadow-md">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-700 text-xl font-bold mb-4">
+                            <i class="fa-solid fa-truck-ramp-box"></i>
+                        </div>
+                        <h3 class="font-black text-globeragreen-950 text-base mb-1">تعبئة وتغليف B2B</h3>
+                        <p class="text-xs text-slate-600">تغليف مخصص بأحجام ومواصفات العميل ومقاوم للصدمات والرطوبة.</p>
+                    </div>
+
+                    <div class="p-6 rounded-2xl bg-gradient-to-br from-white to-emerald-50/50 border border-globeragreen-200 shadow-md">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-purple-700 text-xl font-bold mb-4">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="font-black text-globeragreen-950 text-base mb-1">متابعة دقيقة</h3>
+                        <p class="text-xs text-slate-600">فريق دعم متفرغ لمتابعة مسار الشحنة من الضيعة حتى الميناء أو المستودع.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive B2B Order Volume & Cost Estimator Calculator -->
+    <section id="calculator" class="py-24 px-4 sm:px-6 lg:px-8 relative bg-cream-100/80 border-t border-globeragreen-200">
+        <div class="max-w-4xl mx-auto glass-card-light bg-white rounded-3xl p-8 sm:p-12 shadow-2xl border border-globeragreen-300 relative">
+            <div class="text-center space-y-4 mb-10">
+                <span class="text-globeragreen-800 text-xs font-black uppercase tracking-widest bg-globeragreen-100 px-4 py-1.5 rounded-full border border-globeragreen-300">طلب أسعار وشحنات B2B</span>
+                <h2 class="text-3xl sm:text-4xl font-black text-globeragreen-950">حاسبة الطلبات التقديرية واستمارة التوريد</h2>
+                <p class="text-slate-600 text-xs sm:text-sm max-w-xl mx-auto">حدد متطلبات شحنتك لتلقي عرض سعر مخصص وخدمة حجز فورية من إدارة المبيعات.</p>
+            </div>
+
+            <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-6 text-right">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Full Name / Company -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">الاسم الكامل / اسم الشركة <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-globeragreen-600 transition-colors" placeholder="مثال: شركة المغربية للاستيراد">
+                    </div>
+                    <!-- Email -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">البريد الإلكتروني للعمل <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" required class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-globeragreen-600 transition-colors" placeholder="info@company.com">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <!-- Fruit Selection -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">نوع الفاكهة <span class="text-red-500">*</span></label>
+                        <select id="fruitType" onchange="calculateEstimate()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-globeragreen-600 transition-colors">
+                            <option value="أفوكادو هاس">أفوكادو هاس (Hass Avocado)</option>
+                            <option value="حوامض مراكش">حوامض سوس ومراكش (Citrus)</option>
+                            <option value="موز مغربي">موز مغربي طازج (Fresh Bananas)</option>
+                            <option value="بطيخ أحمر">بطيخ أحمر - دلاح (Watermelon)</option>
+                        </select>
+                    </div>
+                    <!-- Order Type (Local vs Export) -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">نوع الشحن والوجهة <span class="text-red-500">*</span></label>
+                        <select id="destinationType" onchange="calculateEstimate()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-globeragreen-600 transition-colors">
+                            <option value="السوق المحلي بالمغرب">توزيع محلي داخل المغرب (Local Market)</option>
+                            <option value="تصدير لأوروبا">تصدير بحري نحو أوروبا (EU Export)</option>
+                            <option value="تصدير للخليج">تصدير جوي/بحري للخليج (GCC Export)</option>
+                            <option value="تصدير دولي أخرى">تصدير دولي وجهات أخرى (International)</option>
+                        </select>
+                    </div>
+                    <!-- Estimated Quantity Range slider -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700">الكمية التقديرية بالطن: <span id="qtyVal" class="text-globeragreen-700 font-extrabold">10 طن</span></label>
+                        <input type="range" id="quantityRange" min="1" max="100" value="10" oninput="calculateEstimate()" class="w-full accent-globeragreen-600 cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Estimated Cost Preview Widget -->
+                <div class="p-4 rounded-2xl bg-globeragreen-50 border border-globeragreen-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-globeragreen-700 text-white flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xs text-globeragreen-950">تقدير سعة الشحنة اللوجستية</h4>
+                            <p id="estContainers" class="text-xs text-slate-600">تتطلب حوالي: <strong class="text-globeragreen-800">1 شاحنة مبردة متوسطة</strong></p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-white border border-globeragreen-300 text-globeragreen-900 px-4 py-2 rounded-xl font-bold shadow-sm">
+                        عرض سعر رسمي يصلك خلال ساعتين
+                    </span>
+                </div>
+
+                <!-- Notes -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-700">تفاصيل إضافية أو مواصفات خاصة والتغليف</label>
+                    <textarea id="notes" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-slate-900 text-sm focus:outline-none focus:border-globeragreen-600 transition-colors" placeholder="مواعيد التسليم المفضل، مقاسات الصناديق المطلوبة..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center pt-2">
+                    <button type="submit" class="w-full sm:w-auto bg-gradient-to-r from-globeragreen-700 to-globeragreen-600 hover:from-globeragreen-600 hover:to-globeragreen-500 text-white px-12 py-4 rounded-2xl font-black text-lg shadow-xl shadow-globeragreen-600/20 transition-all transform hover:-translate-y-1">
+                        <i class="fa-solid fa-paper-plane ml-2"></i> إرسال طلب الشحنة والتسعير
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact & Location Info Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-white border-t border-globeragreen-200">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-right">
+            <div class="p-6 rounded-2xl bg-cream-50 border border-globeragreen-200 flex items-start space-x-4 space-x-reverse">
+                <div class="w-12 h-12 rounded-xl bg-globeragreen-100 text-globeragreen-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-globeragreen-950 text-base mb-1">المقر الرئيسي والتوزيع</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">المنطقة الفلاحية والصناعية - مراكش / الدار البيضاء، المملكة المغربية</p>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-cream-50 border border-globeragreen-200 flex items-start space-x-4 space-x-reverse">
+                <div class="w-12 h-12 rounded-xl bg-globeragreen-100 text-globeragreen-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-globeragreen-950 text-base mb-1">الاتصال المباشر والواتساب</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed" dir="ltr">+212 5 22 00 00 00 / +212 6 00 00 00 00</p>
+                </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-cream-50 border border-globeragreen-200 flex items-start space-x-4 space-x-reverse">
+                <div class="w-12 h-12 rounded-xl bg-globeragreen-100 text-globeragreen-700 flex items-center justify-center text-xl font-bold flex-shrink-0">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-globeragreen-950 text-base mb-1">البريد الإلكتروني الرسمي</h4>
+                    <p class="text-xs text-slate-600 leading-relaxed">export@globera-morocco.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Light Theme -->
+    <footer class="bg-globeragreen-950 text-white pt-16 pb-8 border-t-4 border-globeragreen-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 text-right pb-12 border-b border-globeragreen-900">
+            <!-- Footer Brand Column -->
+            <div class="space-y-4 md:col-span-1">
+                <div class="flex items-center space-x-3 space-x-reverse">
+                    <!-- Light Theme Footer Logo Accent -->
+                    <svg class="h-10 w-auto" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="270" cy="240" r="160" fill="#15803d" stroke="#4ade80" stroke-width="8"/>
+                        <path d="M 120 120 C 60 70 180 20 260 20 C 190 60 170 100 130 180 Z" fill="#4ade80"/>
+                        <circle cx="232" cy="182" r="8" fill="#facc15"/>
+                        <path d="M 125 300 Q 270 230 415 300 Q 380 380 270 400 Z" fill="#052e16"/>
+                    </svg>
+                    <span class="text-2xl font-black text-white font-poppins">GLOBERA</span>
+                </div>
+                <p class="text-gray-300 text-xs leading-relaxed">
+                    الشركة المغربية المتخصصة في تصدير وتوزيع الفواكه المغربية الفاخرة بأعلى معايير الجودة العالمية والالتزام التام بالمواعيد.
+                </p>
+                <div class="flex space-x-3 space-x-reverse pt-2">
+                    <a href="#" class="w-9 h-9 rounded-xl bg-globeragreen-900 border border-globeragreen-700 flex items-center justify-center text-globeragreen-300 hover:bg-globeragreen-800 transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-globeragreen-900 border border-globeragreen-700 flex items-center justify-center text-globeragreen-300 hover:bg-globeragreen-800 transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-globeragreen-900 border border-globeragreen-700 flex items-center justify-center text-globeragreen-300 hover:bg-globeragreen-800 transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-xl bg-globeragreen-900 border border-globeragreen-700 flex items-center justify-center text-globeragreen-300 hover:bg-globeragreen-800 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-4">
+                <h4 class="text-white font-bold text-base">روابط سريعة</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li><a href="#hero" class="hover:text-globeragreen-300 transition-colors">الرئيسية</a></li>
+                    <li><a href="#products" class="hover:text-globeragreen-300 transition-colors">فواكهنا الممتازة</a></li>
+                    <li><a href="#export-network" class="hover:text-globeragreen-300 transition-colors">شبكة التصدير اللوجستية</a></li>
+                    <li><a href="#calculator" class="hover:text-globeragreen-300 transition-colors">حاسبة الطلبات B2B</a></li>
+                </ul>
+            </div>
+
+            <!-- Products -->
+            <div class="space-y-4">
+                <h4 class="text-white font-bold text-base">محاصيلنا الرئيسية</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li><a href="#products" class="hover:text-globeragreen-300 transition-colors">أفوكادو هاس للتصدير</a></li>
+                    <li><a href="#products" class="hover:text-globeragreen-300 transition-colors">حوامض مراكش وسوس</a></li>
+                    <li><a href="#products" class="hover:text-globeragreen-300 transition-colors">الموز المغربي الطازج</a></li>
+                    <li><a href="#products" class="hover:text-globeragreen-300 transition-colors">بطيخ أحمر (دلاح)</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="space-y-4">
+                <h4 class="text-white font-bold text-base">المملكة المغربية</h4>
+                <ul class="space-y-3 text-xs text-gray-300">
+                    <li class="flex items-center space-x-2 space-x-reverse">
+                        <i class="fa-solid fa-check text-globeragreen-400"></i>
+                        <span>سجل تجاري واتماد مصدّر معتمد ONSSA</span>
+                    </li>
+                    <li class="flex items-center space-x-2 space-x-reverse">
+                        <i class="fa-solid fa-shield-halved text-globeragreen-400"></i>
+                        <span>ضمان جودة المنتج طوال فترة الشحن</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400">
+            <p>© 2026 GLOBERA Morocco S.A. جميع الحقوق محفوظة - تصدير الفواكه المغربية.</p>
+            <div class="flex space-x-6 space-x-reverse mt-4 sm:mt-0">
+                <a href="#" class="hover:text-white">سياسة الخصوصية</a>
+                <a href="#" class="hover:text-white">شروط التوريد والتصدير</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Product Details Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm hidden px-4">
+        <div class="glass-card-light bg-white max-w-lg w-full rounded-3xl p-8 space-y-6 relative border border-globeragreen-300 shadow-2xl">
+            <button onclick="closeProductModal()" class="absolute top-4 left-4 text-slate-400 hover:text-slate-700 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="space-y-2 text-right">
+                <span class="text-xs bg-globeragreen-100 text-globeragreen-800 font-bold px-3 py-1 rounded-full border border-globeragreen-300">تفاصيل المحصول</span>
+                <h3 id="modalTitle" class="text-2xl font-black text-globeragreen-950">عنوان المنتج</h3>
+            </div>
+            <p id="modalDesc" class="text-slate-600 text-sm leading-relaxed text-right">وصف تفصيلي للمنتج ومواصفات التعبئة والشحن.</p>
+            <div class="p-4 rounded-2xl bg-cream-100 border border-globeragreen-200 space-y-2 text-right">
+                <div class="flex justify-between text-xs text-slate-700">
+                    <span>درجة أفرز الجودة:</span>
+                    <strong class="text-globeragreen-800">ممتازة (Export Grade A)</strong>
+                </div>
+                <div class="flex justify-between text-xs text-slate-700">
+                    <span>شهادات السلامة:</span>
+                    <span class="text-slate-900 font-semibold">ONSSA / GlobalGAP Certified</span>
+                </div>
+            </div>
+            <div class="flex space-x-3 space-x-reverse pt-2">
+                <button onclick="closeProductModal(); location.href='#calculator';" class="flex-1 bg-globeragreen-700 hover:bg-globeragreen-800 text-white font-bold py-3 rounded-xl text-sm transition-colors shadow-md">اطلب شحنة الآن</button>
+                <button onclick="closeProductModal()" class="px-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-sm transition-colors">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Mobile Navigation Drawer Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Product Modal Logic
+        function openProductModal(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        // Product Filtering Logic
+        function filterProducts(category) {
+            const items = document.querySelectorAll('.product-item');
+            const tabBtns = document.querySelectorAll('.tab-btn');
+
+            tabBtns.forEach(btn => {
+                btn.classList.remove('bg-globeragreen-700', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+
+            event.target.classList.remove('bg-white', 'text-slate-700');
+            event.target.classList.add('bg-globeragreen-700', 'text-white');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Logistics Route Simulator Logic
+        function selectRoute(routeKey) {
+            const routes = {
+                'eu': {
+                    title: 'خط التصدير إلى أوروبا (EU Maritime Express)',
+                    desc: 'عبر ميناء طنجة المتوسط للحاويات المبردة نحو إسبانيا، فرنسا، ألمانيا، وهولندا خلال 3 إلى 5 أيام.',
+                    btnId: 'btn-eu'
+                },
+                'gcc': {
+                    title: 'خط الشحن الجوي والبحري للخليج (GCC Direct Line)',
+                    desc: 'شحن مبرد مباشر نحو جبل علي ورياض وجدة بدبي والسعودية خلال 7 إلى 10 أيام.',
+                    btnId: 'btn-gcc'
+                },
+                'local': {
+                    title: 'شبكة التوزيع الداخلي بالمغرب (Moroccan Local Route)',
+                    desc: 'تغطية 24 ساعة لكافة المدن المغربية (الدار البيضاء، فاس، الرباط، طنجة، أكادير) عبر شاحنات مبردة.',
+                    btnId: 'btn-local'
+                },
+                'na': {
+                    title: 'خط الشحن لأمريكا الشمالية (North America Route)',
+                    desc: 'شحن متطور ومفحوص خصيصاً للتصدير نحو كندا والولايات المتحدة الأمريكية.',
+                    btnId: 'btn-na'
+                }
+            };
+
+            const route = routes[routeKey];
+            document.getElementById('route-title').innerText = route.title;
+            document.getElementById('route-desc').innerText = route.desc;
+
+            document.querySelectorAll('.route-btn').forEach(btn => {
+                btn.className = 'route-btn bg-slate-100 text-slate-700 hover:bg-globeragreen-50 font-bold py-2.5 px-3 rounded-xl text-xs border border-slate-200 transition-all';
+            });
+
+            document.getElementById(route.btnId).className = 'route-btn bg-globeragreen-700 text-white font-bold py-2.5 px-3 rounded-xl text-xs shadow-sm transition-all';
+        }
+
+        // Order B2B Calculator Estimator
+        function calculateEstimate() {
+            const val = document.getElementById('quantityRange').value;
+            document.getElementById('qtyVal').innerText = `${val} طن`;
+
+            let text = '';
+            if (val <= 5) {
+                text = 'تتطلب حوالي: شاحنة توزيع محلية متوسطة (5 طن)';
+            } else if (val <= 20) {
+                text = 'تتطلب حوالي: شاحنة مبردة كبيرة (TIR / 20 طن)';
+            } else {
+                const containers = Math.ceil(val / 24);
+                text = `تتطلب حوالي: ${containers} حاوية مبردة مكيفة (40ft Reefer Container)`;
+            }
+
+            document.getElementById('estContainers').innerHTML = `سعة الشحنة اللوجستية: <strong class="text-globeragreen-800">${text}</strong>`;
+        }
+
+        // Order Form Toast Notification Handler
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const fruit = document.getElementById('fruitType').value;
+            const dest = document.getElementById('destinationType').value;
+            const qty = document.getElementById('quantityRange').value;
+
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = `شكراً لك ${name}!`;
+            document.getElementById('toast-desc').innerText = `تم تسجيل طلب شحنة (${qty} طن من ${fruit} - ${dest}). يتواصل معك فريق المبيعات الآن.`;
+
+            toast.classList.remove('pointer-events-none', '-translate-y-10', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('-translate-y-10', 'opacity-0', 'pointer-events-none');
+            }, 6000);
+
+            document.getElementById('orderForm').reset();
+            calculateEstimate();
+        }
+    </script>
+</body>
+</html>
